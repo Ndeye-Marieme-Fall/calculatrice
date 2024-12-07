@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error{
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h2>Calculatrice</h2>
+    <form action="" method="POST" id="calcForm">
+        <label for="number">Nombre 1:</label>
+        <input type="text" id="number" name="number"><br>
+        <span class="error" id="errornumber1"></span><br>
+        <select name="operateurs" id="operateurs">operateurs<br>
+            <option value="" disabled selected>operateurs</option>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="/">/</option>
+            <option value="*">*</option>
+           
+        </select><br>
+        <span class="error" id="erroroperateur"></span><br>
+
+        <label for="number2">Nombre 2:</label>
+        <input type="text" id="number2" name="number2"><br>
+        <span class="error" id="errornumber2"></span><br>
+
+        <button type="submit" id="calcul">resultat</button>
+        
+    </form>
+    <p>resultat = <span id="result"></span></p>
+    <script>
+       
+        document.getElementById("calcForm").addEventListener("submit",function(event){
+            event.preventDefault();
+            let num1= document.getElementById("number").value;
+            let num2= document.getElementById("number2").value;
+            let op=document.getElementById("operateurs").value;
+            
+            document.getElementById("errornumber1").innerText="";
+            document.getElementById("errornumber2").innerText="";
+            document.getElementById("erroroperateur").innerText="";
+            let valide=true;
+            if (isNaN(num1)||num1.trim()===""){
+                document.getElementById("errornumber1").innerText="Ce champ doit contenir un nombre";
+                valide=false;
+            }
+            if (isNaN(num2)||num2.trim()===""){
+                document.getElementById("errornumber2").innerText="Ce champ doit contenir un nombre";
+                valide=false;
+            }
+            if(!op){
+                document.getElementById("errorperateur").innerText="Ce champ doit contenir un operateur";
+                valide=false;
+            }
+            if(valide){
+                let num1float= parseFloat(num1);
+                let num2float= parseFloat(num2);
+                let resultat;
+            
+        switch (op){
+            case '+':  resultat =num1float+num2float;
+            break;
+            case'-': resultat =num1float-num2float;
+            break;
+            case'*': resultat =num1float*num2float;
+            break;
+            case '/': 
+            if (num2float !==0){
+                resultat=num1float/num2float
+            }else{
+                resultat="eurreur: il est impossible de diviser par 0";
+            }
+            break;
+            default:
+                 resultat="eurreur";
+
+        }
+        document.getElementById("result").innerText=resultat;
+    }else{
+        document.getElementById("result").innerText="";
+    }
+        });
+        
+
+
+    </script>
+</body>
+</html>
